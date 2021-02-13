@@ -21,6 +21,8 @@ defmodule BrasilEmDadosWeb.Router do
     pipe_through :browser
 
     live "/", PageLive, :index
+    live "/blog", BlogLive.Index, :index
+    live "/blog/:slug", BlogLive.Show, :show
   end
 
   # Other scopes may use custom stacks.
