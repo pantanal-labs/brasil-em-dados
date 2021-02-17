@@ -1,14 +1,17 @@
 defmodule BrasilEmDadosWeb.BlogLive.Index do
   use BrasilEmDadosWeb, :live_view
   alias BrasilEmDadosWeb.BlogLiveView
+  alias BrasilEmDados.Blog
 
-  @impl true
   def mount(_params, _session, socket) do
-    {:ok, socket}
+    {:ok, assign(socket, posts: get_posts())}
   end
 
-  @impl true
   def render(assigns) do
     Phoenix.View.render(BlogLiveView, "index.html", assigns)
+  end
+
+  defp get_posts() do
+    Blog.list_posts()
   end
 end
