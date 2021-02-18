@@ -23,6 +23,7 @@ defmodule BrasilEmDadosWeb.Router do
     live "/", PageLive, :index
     live "/blog", BlogLive.Index, :index
     live "/blog/:slug", BlogLive.Show, :show
+    live "/editor", EditorLive
   end
 
   # Other scopes may use custom stacks.
