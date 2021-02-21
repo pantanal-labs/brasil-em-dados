@@ -66,8 +66,8 @@ defmodule BrasilEmDadosWeb.Router do
 
     scope "/admin" do
 
-      live "/", AdminLive.Index, :index
-      live "/editor", EditorLive
+      live "/", Admin.DashboardLive.Index, :index
+      live "/posts/new", EditorLive
 
 
       get "/settings", UserSettingsController, :edit
@@ -80,7 +80,6 @@ defmodule BrasilEmDadosWeb.Router do
   scope "/", BrasilEmDadosWeb do
     pipe_through [:browser]
 
-    live "/", PageLive, :index
     live "/", PageLive, :index
     live "/blog", BlogLive.Index, :index
     live "/blog/:slug", BlogLive.Show, :show

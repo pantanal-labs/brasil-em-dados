@@ -1,4 +1,4 @@
-defmodule BrasilEmDadosWeb.EditorLive do
+defmodule BrasilEmDadosWeb.Admin.DashboardLive.Index do
   use BrasilEmDadosWeb, :live_view
 
   @impl true
