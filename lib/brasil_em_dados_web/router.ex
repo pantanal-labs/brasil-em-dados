@@ -17,10 +17,8 @@ defmodule BrasilEmDadosWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", BrasilEmDadosWeb do
-    pipe_through :browser
-
-
+  pipeline :admin do
+    plug :put_root_layout, {BrasilEmDadosWeb.LayoutView, :admin}
   end
 
   # Other scopes may use custom stacks.
@@ -62,13 +60,13 @@ defmodule BrasilEmDadosWeb.Router do
 
   # Require authenticated
   scope "/", BrasilEmDadosWeb do
-    pipe_through [:browser, :require_authenticated_user]
+    pipe_through [:browser, :require_authenticated_user, :admin]
 
     scope "/admin" do
 
       live "/", Admin.DashboardLive.Index, :index
-      live "/posts/new", EditorLive
-
+      live "/posts", Admin.PostsLive.Index, :index
+      live "/posts/new", Admin.PostsLive.New, :new
 
       get "/settings", UserSettingsController, :edit
       put "/settings/update_password", UserSettingsController, :update_password

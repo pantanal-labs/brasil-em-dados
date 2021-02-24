@@ -1,4 +1,4 @@
-<div class="container mx-auto flex">
+<div id="post" class="container mx-auto flex">
   <div class="w-2/3 px-5 mx-auto">
     <div class="mt-8 mb-6">
       <h1 class="text-4xl font-bold mb-1">
@@ -9,20 +9,7 @@
       </div>
     </div>
     <p class="leading-relaxed text-base mb-5">
-      <a class="border-b border-black" href="https://spotify.com">Spotify Codes</a>
-      <%= @post.body %>
-      <%= raw(@html)  %>
-    </p>
-    <h2 class="text-2xl font-bold mt-6 mb-4">This is a subtitle</h2>
-    <p class="leading-relaxed text-base mb-5">
-      <%= @post.body %>
-    </p>
-    <p class="leading-relaxed text-base mb-5">
-      <%= @post.body %>
-    </p>
-    <h2 class="text-2xl font-bold mt-6 mb-4">This is another subtitle</h2>
-    <p class="leading-relaxed text-base mb-5 text-justify">
-      <%= @post.body %>
+      <%= raw(@post.body) %>
     </p>
   </div>
 </div>

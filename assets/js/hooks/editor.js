@@ -1,13 +1,31 @@
 import EditorJS from "@editorjs/editorjs";
 import Header from "@editorjs/header";
 import List from "@editorjs/list";
+import Hyperlink from "editorjs-hyperlink";
 
 const Editor = {
   mounted() {
     const editor = new EditorJS({
       holder: "editorjs",
       tools: {
-        header: Header,
+        header: {
+          class: Header,
+          config: {
+            levels: [2, 3, 4],
+            defaultLevel: 2,
+          },
+        },
+        hyperlink: {
+          class: Hyperlink,
+          config: {
+            shortcut: "CMD+L",
+            target: "_blank",
+            rel: "nofollow",
+            availableTargets: ["_blank", "_self"],
+            availableRels: ["author", "noreferrer"],
+            validate: false,
+          },
+        },
         list: List,
       },
       data: {
@@ -40,11 +58,18 @@ const Editor = {
         ],
       },
     });
+
+    this.handleEvent("save-editor", (params) => {
+      editor.save().then((editor_output) => {
+        const payload = {
+          main_text: editor_output["blocks"],
+        };
+        this.pushEvent("create-post", payload);
+      });
+    });
   },
 
-  updated() {
-    this.pending = this.page();
-  },
+  updated() {},
 };
 
 export default Editor;
