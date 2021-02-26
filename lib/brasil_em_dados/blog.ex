@@ -21,6 +21,14 @@ defmodule BrasilEmDados.Blog do
     Repo.all(Post)
   end
 
+  def list_posts(offset, limit) do
+    Post
+    |> offset(^offset)
+    |> limit(^limit)
+    |> preload([:user])
+    |> Repo.all()
+  end
+
   @doc """
   Gets a single post.
 
@@ -40,6 +48,8 @@ defmodule BrasilEmDados.Blog do
   def get_post_by_slug(slug) do
     Repo.get_by(Post, slug: slug)
   end
+
+  def get_total_posts(), do: Repo.all(Post) |> Enum.count()
 
   @doc """
   Creates a post.
