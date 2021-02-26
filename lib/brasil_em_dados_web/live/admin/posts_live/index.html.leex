@@ -18,6 +18,7 @@
               <path d="M12 5l7 7-7 7"></path>
             </svg>
           </a>
+          <%= link "Deletar", to: "#", phx_click: "delete", phx_value_id: post.id, data: [confirm: "Are you sure?"] %>
         </div>
       </div>
     <% end %>
