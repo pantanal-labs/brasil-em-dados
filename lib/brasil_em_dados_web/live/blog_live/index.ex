@@ -7,6 +7,6 @@ defmodule BrasilEmDadosWeb.BlogLive.Index do
   end
 
   defp get_posts() do
-    Blog.list_posts()
+    Blog.list_public_posts(0, 10)
   end
 end

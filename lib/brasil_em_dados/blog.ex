@@ -17,12 +17,17 @@ defmodule BrasilEmDados.Blog do
       [%Post{}, ...]
 
   """
-  def list_posts do
-    Repo.all(Post)
-  end
-
   def list_posts(offset, limit) do
     Post
+    |> offset(^offset)
+    |> limit(^limit)
+    |> preload([:user])
+    |> Repo.all()
+  end
+
+  def list_public_posts(offset, limit) do
+    Post
+    |> where(status: "published")
     |> offset(^offset)
     |> limit(^limit)
     |> preload([:user])
