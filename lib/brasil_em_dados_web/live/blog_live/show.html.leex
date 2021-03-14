@@ -11,5 +11,12 @@
     <p class="leading-relaxed text-base mb-5">
       <%= raw(@post.body) %>
     </p>
+    <%= if @post.tags != [] do %>
+    <div>
+      <%= for tag <- @post.tags do%>
+        <b><%= tag.name %></b>
+      <% end %>
+    </div>
+    <% end %>
   </div>
 </div>

@@ -63,10 +63,13 @@ defmodule BrasilEmDadosWeb.Router do
     pipe_through [:browser, :require_authenticated_user, :admin]
 
     scope "/admin" do
-
       live "/", Admin.DashboardLive.Index, :index
+
       live "/posts", Admin.PostsLive.Index, :index
       live "/posts/new", Admin.PostsLive.New, :new
+
+      live "/tags", Admin.TagsLive.Index, :index
+      live "/tags/new", Admin.TagsLive.New, :new
 
       get "/settings", UserSettingsController, :edit
       put "/settings/update_password", UserSettingsController, :update_password

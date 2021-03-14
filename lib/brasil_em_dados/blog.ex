@@ -6,7 +6,7 @@ defmodule BrasilEmDados.Blog do
   import Ecto.Query, warn: false
   alias BrasilEmDados.Repo
 
-  alias BrasilEmDados.Blog.Post
+  alias BrasilEmDados.Blog.{Post, Tag}
 
   @doc """
   Returns the list of posts.
@@ -21,7 +21,7 @@ defmodule BrasilEmDados.Blog do
     Post
     |> offset(^offset)
     |> limit(^limit)
-    |> preload([:user])
+    |> preload([:user, :tags])
     |> Repo.all()
   end
 
@@ -30,8 +30,14 @@ defmodule BrasilEmDados.Blog do
     |> where(status: "published")
     |> offset(^offset)
     |> limit(^limit)
-    |> preload([:user])
+    |> preload([:user, :tags])
     |> Repo.all()
+  end
+
+  def list_posts_by_tag(tag_name) do
+    tag = Repo.get_by!(Tag, name: tag_name)
+
+    Repo.all(Ecto.assoc(tag, :posts))
   end
 
   @doc """
@@ -48,13 +54,25 @@ defmodule BrasilEmDados.Blog do
       ** (Ecto.NoResultsError)
 
   """
-  def get_post!(id), do: Repo.get!(Post, id)
+  def get_post!(id) do
+    Repo.get!(Post, id) |> Repo.preload(:tags)
+  end
 
   def get_post_by_slug(slug) do
-    Repo.get_by(Post, slug: slug)
+    Repo.get_by(Post, slug: slug) |> Repo.preload([:tags])
   end
 
   def get_total_posts(), do: Repo.all(Post) |> Enum.count()
+
+  @doc """
+  Get a single Tag
+  """
+  def get_tag!(id), do: Repo.get!(Tag, id)
+
+  @doc """
+  Returns a list of tags
+  """
+  def list_tags(), do: Repo.all(Tag)
 
   @doc """
   Creates a post.
@@ -68,9 +86,15 @@ defmodule BrasilEmDados.Blog do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_post(attrs \\ %{}) do
+  def create_post(attrs \\ %{}, tags) do
     %Post{}
-    |> Post.changeset(attrs)
+    |> Post.changeset(attrs, tags)
+    |> Repo.insert()
+  end
+
+  def create_tag(attrs \\ %{}) do
+    %Tag{}
+    |> Tag.changeset(attrs)
     |> Repo.insert()
   end
 
@@ -92,6 +116,12 @@ defmodule BrasilEmDados.Blog do
     |> Repo.update()
   end
 
+  def update_tag(%Tag{} = tag, attrs) do
+    tag
+    |> Tag.changeset(attrs)
+    |> Repo.update()
+  end
+
   @doc """
   Deletes a post.
 
@@ -108,6 +138,10 @@ defmodule BrasilEmDados.Blog do
     Repo.delete(post)
   end
 
+  def delete_tag(%Tag{} = tag) do
+    Repo.delete(tag)
+  end
+
   @doc """
   Returns an `%Ecto.Changeset{}` for tracking post changes.
 
@@ -119,5 +153,9 @@ defmodule BrasilEmDados.Blog do
   """
   def change_post(%Post{} = post, attrs \\ %{}) do
     Post.changeset(post, attrs)
+  end
+
+  def change_tag(%Tag{} = tag, attrs \\ %{}) do
+    Tag.changeset(tag, attrs)
   end
 end

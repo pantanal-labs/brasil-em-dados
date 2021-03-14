@@ -1,5 +1,6 @@
 defmodule BrasilEmDadosWeb.Admin.PostsLive.New do
   use BrasilEmDadosWeb, :live_view
+
   alias BrasilEmDados.Blog
   alias BrasilEmDados.Blog.Post
   alias BrasilEmDados.Utils.EditorjsConverter
@@ -7,7 +8,8 @@ defmodule BrasilEmDadosWeb.Admin.PostsLive.New do
   @impl true
   def mount(_params, _session, socket) do
     changeset = Blog.change_post(%Post{})
-    {:ok, assign(socket, changeset: changeset)}
+
+    {:ok, assign(socket, changeset: changeset, selected_tags: [])}
   end
 
   @impl true
@@ -20,9 +22,15 @@ defmodule BrasilEmDadosWeb.Admin.PostsLive.New do
     save_post(socket, params)
   end
 
+  @impl true
+  def handle_info({:set_tags, selected_tags}, socket) do
+    {:noreply, assign(socket, selected_tags: selected_tags)}
+  end
+
   defp save_post(%{assigns: assigns} = socket, %{"main_text" => main_text}) do
     {:ok, encoded_text} = Jason.encode(main_text)
     {:ok, parser} = EditorjsConverter.to_html(encoded_text)
+
     post = %{
       title: assigns.form_data["title"],
       slug: assigns.form_data["slug"],
@@ -30,7 +38,7 @@ defmodule BrasilEmDadosWeb.Admin.PostsLive.New do
       body: parser
     }
 
-    case Blog.create_post(post) do
+    case Blog.create_post(post, assigns.selected_tags) do
       {:ok, post} ->
         {:noreply,
          socket

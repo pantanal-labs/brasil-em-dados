@@ -68,8 +68,6 @@ const Editor = {
       });
     });
   },
-
-  updated() {},
 };
 
 export default Editor;
