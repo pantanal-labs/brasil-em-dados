@@ -7,8 +7,6 @@ defmodule BrasilEmDadosWeb.BlogLive.Index do
   end
 
   defp get_posts() do
-    IO.inspect(Blog.list_public_posts(0, 10))
-
     Blog.list_public_posts(0, 10)
   end
 end

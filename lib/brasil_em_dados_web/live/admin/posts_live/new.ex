@@ -3,7 +3,6 @@ defmodule BrasilEmDadosWeb.Admin.PostsLive.New do
 
   alias BrasilEmDados.Blog
   alias BrasilEmDados.Blog.Post
-  alias BrasilEmDados.Utils.EditorjsConverter
 
   @impl true
   def mount(_params, _session, socket) do
@@ -13,13 +12,18 @@ defmodule BrasilEmDadosWeb.Admin.PostsLive.New do
   end
 
   @impl true
-  def handle_event("prepare-data", %{"post" => post}, socket) do
-    {:noreply, socket |> assign(form_data: post) |> push_event("save-editor", %{})}
+  def handle_event("validate", %{"post" => post_params}, socket) do
+    changeset =
+      %Post{}
+      |> Blog.change_post(post_params)
+      |> Map.put(:action, :validate)
+
+    {:noreply, assign(socket, :changeset, changeset)}
   end
 
   @impl true
-  def handle_event("create-post", params, socket) do
-    save_post(socket, params)
+  def handle_event("save", %{"post" => post_params}, socket) do
+    save_post(socket, post_params)
   end
 
   @impl true
@@ -27,18 +31,10 @@ defmodule BrasilEmDadosWeb.Admin.PostsLive.New do
     {:noreply, assign(socket, selected_tags: selected_tags)}
   end
 
-  defp save_post(%{assigns: assigns} = socket, %{"main_text" => main_text}) do
-    {:ok, encoded_text} = Jason.encode(main_text)
-    {:ok, parser} = EditorjsConverter.to_html(encoded_text)
+  defp save_post(socket, post_params) do
+    post_params = Map.put(post_params, "user_id", 1)
 
-    post = %{
-      title: assigns.form_data["title"],
-      slug: assigns.form_data["slug"],
-      user_id: 1,
-      body: parser
-    }
-
-    case Blog.create_post(post, assigns.selected_tags) do
+    case Blog.create_post(post_params, socket.assigns.selected_tags) do
       {:ok, post} ->
         {:noreply,
          socket

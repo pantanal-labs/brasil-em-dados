@@ -7,10 +7,6 @@
     "watch": "webpack --mode development --watch"
   },
   "dependencies": {
-    "@editorjs/editorjs": "^2.19.1",
-    "@editorjs/header": "^2.6.1",
-    "@editorjs/list": "^1.6.2",
-    "editorjs-hyperlink": "^1.0.5",
     "nprogress": "^0.2.0",
     "phoenix": "file:../deps/phoenix",
     "phoenix_html": "file:../deps/phoenix_html",

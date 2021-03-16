@@ -7,7 +7,11 @@
         <div class="h-full border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden">
           <img class="lg:h-48 md:h-36 w-full object-cover object-center" src="http://localhost:4000/images/phoenix.png" alt="blog">
           <div class="p-6">
-            <h2 class="tracking-widest text-xs title-font font-medium text-gray-400 mb-1">CATEGORY</h2>
+            <div class="flex flex-row">
+              <%= for tag <- post.tags do %>
+                <h2 class="tracking-widest mr-4 text-xs uppercase font-medium text-gray-400 mb-1"><%= tag.name %></h2>
+              <% end %>
+            </div>
             <h1 class="text-lg font-medium text-gray-900 mb-3"><%= post.title %></h1>
             <p class="leading-relaxed mb-3">Photo booth fam kinfolk cold-pressed sriracha leggings jianbing microdosing tousled waistcoat.</p>
             <div class="flex items-center flex-wrap ">

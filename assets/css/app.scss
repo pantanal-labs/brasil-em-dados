@@ -8,4 +8,8 @@
   #post a {
     @apply border-b border-black;
   }
+
+  #post h1 {
+    @apply text-2xl font-bold mt-6 mb-4;
+  }
 }

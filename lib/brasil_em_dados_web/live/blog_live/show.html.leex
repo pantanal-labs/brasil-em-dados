@@ -9,7 +9,7 @@
       </div>
     </div>
     <p class="leading-relaxed text-base mb-5">
-      <%= raw(@post.body) %>
+      <%= raw(@post.body_html) %>
     </p>
     <%= if @post.tags != [] do %>
     <div>

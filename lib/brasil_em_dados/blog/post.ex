@@ -8,8 +8,9 @@ defmodule BrasilEmDados.Blog.Post do
   defenum(PostStatusEnum, published: 0, draft: 1, future: 2, private: 3)
 
   schema "posts" do
-    field :body, :string
     field :title, :string
+    field :body, :string
+    field :body_html, :string
     field :slug, :string
     field :status, PostStatusEnum
     belongs_to :user, User
@@ -24,5 +25,13 @@ defmodule BrasilEmDados.Blog.Post do
     |> cast(attrs, [:title, :slug, :body, :user_id, :status])
     |> validate_required([:title, :body, :slug, :user_id])
     |> put_assoc(:tags, tags)
+    |> prepare_changes(&parse_markdown_to_html/1)
+  end
+
+  defp parse_markdown_to_html(changeset) do
+    markdown_body = get_change(changeset, :body)
+    {:ok, body_html, []} = Earmark.as_html(markdown_body)
+
+    put_change(changeset, :body_html, body_html)
   end
 end
