@@ -1,8 +1,8 @@
 <section class="text-gray-600 body-font">
   <div class="container px-10 py-24 mx-auto">
-    <div class="flex flex-wrap -m-4">
+    <div id="posts" phx-update="<%= @update %>" class="flex flex-wrap -m-3">
       <%= for post <- @posts do %>
-      <div class="p-4 md:w-1/2">
+      <div id="post-<%= post.id %>" class="p-4 md:w-1/2">
         <%= live_redirect to: Routes.blog_show_path(@socket, :show, post.slug) do %>
         <div class="h-full border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden">
           <img class="lg:h-48 md:h-36 w-full object-cover object-center" src="http://localhost:4000/images/phoenix.png" alt="blog">
@@ -32,6 +32,8 @@
         <% end %>
       </div>
       <% end %>
+    </div>
+    <div id="loading" phx-hook="InfiniteScroll">
     </div>
   </div>
 </section>
