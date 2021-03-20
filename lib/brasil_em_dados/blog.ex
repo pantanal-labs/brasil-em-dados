@@ -86,9 +86,9 @@ defmodule BrasilEmDados.Blog do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_post(attrs \\ %{}, tags) do
+  def create_post(attrs) do
     %Post{}
-    |> Post.changeset(attrs, tags)
+    |> Post.changeset(attrs)
     |> Repo.insert()
   end
 

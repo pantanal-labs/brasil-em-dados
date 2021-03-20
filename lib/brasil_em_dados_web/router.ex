@@ -67,6 +67,7 @@ defmodule BrasilEmDadosWeb.Router do
 
       live "/posts", Admin.PostsLive.Index, :index
       live "/posts/new", Admin.PostsLive.New, :new
+      live "/posts/edit/:id", Admin.PostsLive.Edit, :edit
 
       live "/tags", Admin.TagsLive.Index, :index
       live "/tags/new", Admin.TagsLive.New, :new

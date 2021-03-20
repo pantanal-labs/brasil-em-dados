@@ -1,14 +1,15 @@
-defmodule BrasilEmDadosWeb.Admin.PostsLive.New do
+defmodule BrasilEmDadosWeb.Admin.PostsLive.Edit do
   use BrasilEmDadosWeb, :live_view
 
   alias BrasilEmDados.Blog
   alias BrasilEmDados.Blog.Post
 
   @impl true
-  def mount(_params, _session, socket) do
-    changeset = Blog.change_post(%Post{})
+  def mount(%{"id" => id}, _session, socket) do
+    post = Blog.get_post!(id)
+    changeset = Blog.change_post(post)
 
-    {:ok, assign(socket, changeset: changeset, selected_tags: [])}
+    {:ok, assign(socket, post: post, changeset: changeset, selected_tags: post.tags)}
   end
 
   @impl true
@@ -32,12 +33,10 @@ defmodule BrasilEmDadosWeb.Admin.PostsLive.New do
   end
 
   defp save_post(socket, post_params) do
-
     post_params = post_params
-    |> Map.put("user_id", 1)
     |> Map.put("tags", socket.assigns.selected_tags)
 
-    case Blog.create_post(post_params) do
+    case Blog.update_post(socket.assigns.post, post_params) do
       {:ok, post} ->
         {:noreply,
          socket
