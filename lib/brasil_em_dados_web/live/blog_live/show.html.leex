@@ -14,7 +14,7 @@
     <%= if @post.tags != [] do %>
     <div>
       <%= for tag <- @post.tags do%>
-        <b><%= tag.name %></b>
+        <%= live_redirect to: Routes.blog_tag_path(@socket, :tag, tag.name) do%><%= tag.name %><% end %>
       <% end %>
     </div>
     <% end %>

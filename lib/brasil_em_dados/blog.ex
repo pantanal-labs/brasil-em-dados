@@ -34,10 +34,15 @@ defmodule BrasilEmDados.Blog do
     |> Repo.all()
   end
 
-  def list_posts_by_tag(tag_name) do
-    tag = Repo.get_by!(Tag, name: tag_name)
-
-    Repo.all(Ecto.assoc(tag, :posts))
+  def list_posts_by_tag(tag_name, offset, limit) do
+    Repo.all(
+      from p in Post,
+        join: t in assoc(p, :tags),
+        where: t.name == ^tag_name,
+        offset: ^offset,
+        limit: ^limit,
+        preload: [:tags]
+    )
   end
 
   @doc """
@@ -68,6 +73,8 @@ defmodule BrasilEmDados.Blog do
   Get a single Tag
   """
   def get_tag!(id), do: Repo.get!(Tag, id)
+
+  def get_tag_by_name!(tag_name), do: Repo.get_by!(Tag, name: tag_name)
 
   @doc """
   Returns a list of tags

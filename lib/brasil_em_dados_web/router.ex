@@ -84,7 +84,9 @@ defmodule BrasilEmDadosWeb.Router do
 
     live "/", PageLive, :index
     live "/blog", BlogLive.Index, :index
+    live "/blog/tag/:tag_name", BlogLive.Tag, :tag
     live "/blog/:slug", BlogLive.Show, :show
+
 
     scope "/admin" do
       delete "/log_out", UserSessionController, :delete
