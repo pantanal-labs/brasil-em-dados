@@ -30,6 +30,7 @@ defmodule BrasilEmDados.Blog do
     |> where(status: "published")
     |> offset(^offset)
     |> limit(^limit)
+    |> order_by(:inserted_at)
     |> preload([:user, :tags])
     |> Repo.all()
   end

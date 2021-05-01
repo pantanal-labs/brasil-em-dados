@@ -5,11 +5,19 @@
 @tailwind utilities;
 
 @layer components {
-  #post a {
+  .post-body a {
     @apply border-b border-black;
   }
 
-  #post h1 {
+  .post-body h2 {
     @apply text-2xl font-bold mt-6 mb-4;
+  }
+
+  .post-body > :first-child {
+    margin-top: 0;
+  }
+
+  .post-body p {
+    @apply mt-5 mb-5;
   }
 }
