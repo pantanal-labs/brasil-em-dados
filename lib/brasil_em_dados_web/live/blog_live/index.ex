@@ -10,7 +10,7 @@ defmodule BrasilEmDadosWeb.BlogLive.Index do
       {:ok,
         socket
         |> assign(current_page: 1, update: "")
-        |> get_posts(:index)}
+        |> get_posts(:index, nil)}
     else
       {:ok,
         socket
@@ -22,15 +22,24 @@ defmodule BrasilEmDadosWeb.BlogLive.Index do
 
   @impl true
   def handle_event("load-more", _params, %{assigns: assigns} = socket) do
-    {:noreply,
-      socket
-      |> update(:current_page, &(&1 + 1))
-      |> update_with_append()
-      |> get_posts(assigns.live_action)
-    }
+    if Map.has_key?(assigns, :tag) do
+      {:noreply,
+        socket
+        |> update(:current_page, &(&1 + 1))
+        |> update_with_append()
+        |> get_posts(assigns.live_action, assigns.tag.name)
+      }
+    else
+      {:noreply,
+        socket
+        |> update(:current_page, &(&1 + 1))
+        |> update_with_append()
+        |> get_posts(assigns.live_action, nil)
+      }
+    end
   end
 
-  defp get_posts(socket, :index) do
+  defp get_posts(socket, :index, nil) do
     offset = (socket.assigns.current_page - 1) * @posts_per_page
     posts = Blog.list_public_posts(offset, @posts_per_page)
 

@@ -82,8 +82,8 @@ defmodule BrasilEmDadosWeb.Router do
   scope "/", BrasilEmDadosWeb do
     pipe_through [:browser]
 
-    live "/", PageLive, :index
-    live "/blog", BlogLive.Index, :index
+    live "/", BlogLive.Index, :index
+    #live "/blog", BlogLive.Index, :index
     live "/blog/tag/:tag_name", BlogLive.Index, :tag
     live "/blog/:slug", BlogLive.Show, :show
 

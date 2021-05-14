@@ -5,6 +5,9 @@
 @tailwind utilities;
 
 @layer components {
+  #menu-toggle:checked + #menu {
+    display: block;
+  }
   .post-body a {
     @apply border-b border-black;
   }

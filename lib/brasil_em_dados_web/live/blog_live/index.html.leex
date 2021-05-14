@@ -1,15 +1,8 @@
 <section class="text-gray-600 body-font">
   <div class="container px-5  mx-auto">
-    <%#<div class="w-full my-5 flex border-2 border-gray-200 border-opacity-60 rounded-md">%>
-    <%#  <img class="lg:h-48 md:h-36 w-full  md:w-2/5 object-cover object-center rounded-tl-md rounded-bl-md" src="https://res.cloudinary.com/appditto/image/fetch/w_1500,c_limit,q_80,f_auto/https://ghost.appditto.com/content/images/2019/12/preview-green-black.png" alt="blog">%>
-    <%#  <div class="md:w-3/5 p-5">%>
-    <%#    <h1 class="text-2xl font-semibold text-gray-900 mb-3">As10 maiores cidades de Mato Grosso</h1>%>
-    <%#    <p class="leading-relaxed">Veja quais sao as dez maiores cidades do estado brasileiro de Mato Grosso.</p>%>
-    <%#  </div>%>
-    <%#</div>%>
     <div class="w-full bg-red p-6">
       <%= if @live_action == :tag do %>
-        <h1 class="text-3xl font-bold uppercase"><%= @tag.name %></h1>
+        <h1 class="text-2xl font-bold uppercase"><%= @tag.name %></h1>
       <% end %>
     </div>
     <div id="posts" phx-update="<%= @update %>" class="flex flex-wrap -m-3">
