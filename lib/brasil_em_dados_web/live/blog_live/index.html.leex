@@ -1,0 +1,30 @@
+<section class="text-gray-600 body-font">
+  <div class="container px-5  mx-auto">
+    <div class="w-full bg-red p-6">
+      <%= if @live_action == :tag do %>
+        <h1 class="text-2xl font-bold uppercase"><%= @tag.name %></h1>
+      <% end %>
+    </div>
+    <div id="posts" phx-update="<%= @update %>" class="flex flex-wrap -m-3">
+      <%= for post <- @posts do %>
+      <div id="post-<%= post.id %>" class="p-4 md:w-1/2">
+        <%= live_redirect to: Routes.blog_show_path(@socket, :show, post.slug) do %>
+        <div class="border-2 border-gray-200 border-opacity-60 rounded-md overflow-hidden">
+          <div class="p-4">
+            <h1 class="text-xl font-bold text-gray-900 mb-4"><%= post.title %></h1>
+            <div class="flex items-center flex-wrap">
+            <p class="text-black leading-relaxed mb-3">Photo booth fam kinfolk cold-pressed sriracha leggings jianbing microdosing tousled waistcoat.</p> 
+              <span class="text-gray-500 mr-3 inline-flex items-center  leading-none text-sm pr-3 py-1">
+                <%= "#{post.inserted_at.day}/#{post.inserted_at.month}/#{post.inserted_at.year}" %>
+              </span>
+            </div>
+          </div>
+        </div>
+        <% end %>
+      </div>
+      <% end %>
+    </div>
+    <div id="loading" phx-hook="InfiniteScroll">
+    </div>
+  </div>
+</section>

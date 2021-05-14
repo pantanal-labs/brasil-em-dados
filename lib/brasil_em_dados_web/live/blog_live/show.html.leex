@@ -1,0 +1,22 @@
+<article id="post" class="container mx-auto flex">
+  <div class="w-full px-5 md:w-8/12 mx-auto">
+    <div class="mt-8 mb-4">
+      <h1 class="text-4xl font-bold mb-1">
+        <%= @post.title %>
+      </h1>
+      <div class="text-sm opacity-75">
+       <%= "#{@post.inserted_at.day}/#{@post.inserted_at.month}/#{@post.inserted_at.year}" %> · Roger Pinho
+       <%= if @post.tags != [] do %>
+        <%= for tag <- @post.tags do %>
+          · <%= live_redirect class: "inline-block py-1 px-2 rounded bg-#{tag.color}-50 uppercase text-#{tag.color}-500 text-xs font-medium tracking-widest", to: Routes.blog_index_path(@socket, :tag, tag.name) do%><%= tag.name %><% end %>
+
+        <% end %>
+        <% end %>
+
+      </div>
+    </div>
+    <div class="post-body text-lg leading-7 mb-5">
+      <%= raw(@post.body_html) %>
+    </div>
+  </div>
+</article>
