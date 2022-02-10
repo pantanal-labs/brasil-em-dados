@@ -34,23 +34,24 @@ defmodule BrasilEmDados.MixProject do
   defp deps do
     [
       {:bcrypt_elixir, "~> 2.0"},
-      {:phoenix, "~> 1.5.3"},
-      {:phoenix_ecto, "~> 4.1"},
-      {:ecto_sql, "~> 3.4"},
+      {:phoenix, "~> 1.6.6", override: true},
+      {:phoenix_ecto, "~> 4.4.0"},
+      {:ecto_sql, "~> 3.7.2"},
       {:postgrex, ">= 0.0.0"},
       {:ecto_enum, "~> 1.4"},
-      {:phoenix_live_view, "~> 0.15.4"},
+      {:phoenix_live_view, "~> 0.17.7"},
       {:floki, ">= 0.0.0", only: :test},
-      {:phoenix_html, "~> 2.11"},
-      {:phoenix_live_reload, "~> 1.2", only: :dev},
-      {:phoenix_live_dashboard, "~> 0.4.0"},
-      {:telemetry_metrics, "~> 0.4"},
-      {:telemetry_poller, "~> 0.4"},
+      {:phoenix_html, "~> 3.2"},
+      {:phoenix_live_reload, "~> 1.3.3", only: :dev},
+      {:phoenix_live_dashboard, "~> 0.6.3"},
+      {:telemetry_metrics, "~> 0.6"},
+      {:telemetry_poller, "~> 0.5"},
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
-      {:phx_gen_auth, "~> 0.4.0", only: [:dev], runtime: false},
-      {:earmark, "~> 1.4.14" }
+      {:earmark, "~> 1.4.14" },
+      {:esbuild,"~> 0.4.0", runtime: Mix.env() == :dev},
+      {:tailwind, "~> 0.1.5", runtime: Mix.env() == :dev}
     ]
   end
 
@@ -65,6 +66,7 @@ defmodule BrasilEmDados.MixProject do
       setup: ["deps.get", "ecto.setup", "cmd npm install --prefix assets"],
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
+      "assets.deploy": ["tailwind default --minify", "esbuild default --minify", "phx.digest"],
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"]
     ]
   end

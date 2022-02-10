@@ -3,8 +3,8 @@ defmodule BrasilEmDados.Repo.Migrations.AddTagsToPosts do
 
   def change do
     create table(:tags) do
-      add :name, :string, null: :false
-      add :color, :string, null: :false
+      add :name, :string, null: false
+      add :color, :string, null: false
 
       timestamps()
     end

@@ -33,8 +33,9 @@ defmodule BrasilEmDadosWeb.Admin.PostsLive.Edit do
   end
 
   defp save_post(socket, post_params) do
-    post_params = post_params
-    |> Map.put("tags", socket.assigns.selected_tags)
+    post_params =
+      post_params
+      |> Map.put("tags", socket.assigns.selected_tags)
 
     case Blog.update_post(socket.assigns.post, post_params) do
       {:ok, post} ->

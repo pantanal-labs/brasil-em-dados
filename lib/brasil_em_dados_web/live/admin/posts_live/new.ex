@@ -32,10 +32,10 @@ defmodule BrasilEmDadosWeb.Admin.PostsLive.New do
   end
 
   defp save_post(socket, post_params) do
-
-    post_params = post_params
-    |> Map.put("user_id", 1)
-    |> Map.put("tags", socket.assigns.selected_tags)
+    post_params =
+      post_params
+      |> Map.put("user_id", 1)
+      |> Map.put("tags", socket.assigns.selected_tags)
 
     case Blog.create_post(post_params) do
       {:ok, post} ->

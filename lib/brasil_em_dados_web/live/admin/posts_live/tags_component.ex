@@ -16,19 +16,21 @@ defmodule BrasilEmDadosWeb.Admin.PostsLive.TagsComponent do
 
   @impl true
   def render(assigns) do
-    ~L"""
-    <div class="mb-4 text-lg font-semibold text-gray-600 dark:text-gray-300">Tags</div>
-    <div class="py-2 px-3 mb-4 bg-white border-b border-gray-300" phx-target="<%= @myself %>">
-      <%= for tag <- @tags do %>
-        <span class="inline-block text-base <%= if selected?(@selected_tags, tag), do: "bg-red-400", else: "bg-green-400" %>   text-white py-1 px-2 mr-1 mb-1 rounded">
-          <span class="text-base font-semibold text-black"><%= tag.name %></span>
-          <%= if selected?(@selected_tags, tag) do %>
-            <a href="#" class="text-black text-lg hover:text-white" phx-target="<%= @myself %>" phx-click="delete" phx-value-tag-id="<%= tag.id %>">&times</a>
-          <% else %>
-            <a href="#" class="text-black text-lg hover:text-white" phx-target="<%= @myself %>" phx-click="pick" phx-value-tag-id="<%= tag.id %>">+</a>
-          <% end %>
-        </span>
-      <% end %>
+    ~H"""
+    <div>
+      <div class="mb-4 text-lg font-semibold text-gray-600 dark:text-gray-300">Tags</div>
+      <div class="py-2 px-3 mb-4 bg-white border-b border-gray-300" phx-target={@myself}>
+        <%= for tag <- @tags do %>
+          <span class={"inline-block text-base #{if selected?(@selected_tags, tag), do: "bg-red-400", else: "bg-green-400"} text-white py-1 px-2 mr-1 mb-1 rounded"}>
+            <span class="text-base font-semibold text-black"><%= tag.name %></span>
+            <%= if selected?(@selected_tags, tag) do %>
+              <a href="#" class="text-black text-lg hover:text-white" phx-target={@myself} phx-click="delete" phx-value-tag-id={tag.id}>&times</a>
+            <% else %>
+              <a href="#" class="text-black text-lg hover:text-white" phx-target={@myself} phx-click="pick" phx-value-tag-id={tag.id} >+</a>
+            <% end %>
+          </span>
+        <% end %>
+      </div>
     </div>
     """
   end

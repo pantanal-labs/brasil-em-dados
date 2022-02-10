@@ -3,7 +3,8 @@ defmodule BrasilEmDados.Repo.Migrations.AddStatusToPosts do
 
   def change do
     alter table(:posts) do
-      add :status, :integer, default: 0 # 0 = published
+      # 0 = published
+      add :status, :integer, default: 0
     end
 
     create index(:posts, [:status])
