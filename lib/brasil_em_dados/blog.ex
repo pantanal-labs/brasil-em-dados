@@ -25,25 +25,21 @@ defmodule BrasilEmDados.Blog do
     |> Repo.all()
   end
 
-  def list_public_posts(offset, limit) do
+  def list_public_posts(page) do
     Post
     |> where(status: "published")
-    |> offset(^offset)
-    |> limit(^limit)
-    |> order_by(:inserted_at)
+    |> order_by([p], asc: p.inserted_at, asc: p.id)
     |> preload([:user, :tags])
-    |> Repo.all()
+    |> Repo.paginate(page: page)
   end
 
-  def list_posts_by_tag(tag_name, offset, limit) do
-    Repo.all(
-      from p in Post,
+  def list_posts_by_tag(tag_name, page) do
+    query = from p in Post,
         join: t in assoc(p, :tags),
         where: t.name == ^tag_name,
-        offset: ^offset,
-        limit: ^limit,
         preload: [:tags]
-    )
+
+    Repo.paginate(query, page: page)
   end
 
   @doc """
