@@ -2,4 +2,6 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
-
+.post-body h2 {
+  @apply text-2xl mt-8 mb-6 font-bold;
+}

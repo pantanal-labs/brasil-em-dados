@@ -1,5 +1,10 @@
 <section class="text-gray-600 body-font">
   <div class="container px-5  mx-auto">
+    <div class="w-full bg-red p-6">
+      <%= if(@tag) do %>
+        <h1 class="text-2xl font-bold uppercase"><%= @tag.name %></h1>
+      <% end %>
+    </div>
     <div id="posts" class="flex flex-wrap -m-3">
       <%= for post <- @posts do %>
       <div id="post-{post.id}" class="p-4 md:w-1/2">
@@ -21,13 +26,13 @@
     </div>
     <div class="mx-auto flex justify-center items-center p-2 w-full">
       <%= if @page > 1 do %>
-        <%= live_redirect("Anterior", to: Routes.blog_index_path(@socket, :index, page: @page - 1), class: "p-1 hover:text-gray-900") %>
+        <%= live_redirect("Anterior", to: Routes.blog_tag_path(@socket, :index, @tag.name, page: @page - 1), class: "p-1 hover:text-gray-900") %>
       <% end %>
       <div class="py-2 px-4 text-black">
         <%= @page %> de <%= @total_pages %>
       </div>
       <%= if @total_pages >  @page do %>
-        <%= live_redirect("Proximo", to: Routes.blog_index_path(@socket, :index, page: @page + 1), class: "p-1 hover:text-gray-900") %>
+        <%= live_redirect("Proximo", to: Routes.blog_tag_path(@socket, :index, @tag.name, page: @page + 1), class: "p-1 hover:text-gray-900") %>
       <% end %>
     </div>
   </div>
