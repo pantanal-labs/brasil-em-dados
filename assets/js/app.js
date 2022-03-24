@@ -16,6 +16,14 @@ import { Socket } from "phoenix";
 // import NProgress from "nprogress";
 import { LiveSocket } from "phoenix_live_view";
 
+if (document.querySelector("#nav-toggle")) {
+  let navToggle = document.getElementById("nav-toggle")
+  let navContent = document.getElementById("menu")
+  navToggle.addEventListener("click", () => {
+      navContent.classList.toggle("hidden"); 
+  })
+}
+
 let csrfToken = document
   .querySelector("meta[name='csrf-token']")
   .getAttribute("content");

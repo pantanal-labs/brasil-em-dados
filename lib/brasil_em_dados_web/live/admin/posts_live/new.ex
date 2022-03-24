@@ -7,7 +7,6 @@ defmodule BrasilEmDadosWeb.Admin.PostsLive.New do
   @impl true
   def mount(_params, _session, socket) do
     changeset = Blog.change_post(%Post{})
-
     {:ok, assign(socket, changeset: changeset, selected_tags: [])}
   end
 
@@ -25,7 +24,7 @@ defmodule BrasilEmDadosWeb.Admin.PostsLive.New do
   def handle_event("save", %{"post" => post_params}, socket) do
     save_post(socket, post_params)
   end
-
+ 
   @impl true
   def handle_info({:set_tags, selected_tags}, socket) do
     {:noreply, assign(socket, selected_tags: selected_tags)}
