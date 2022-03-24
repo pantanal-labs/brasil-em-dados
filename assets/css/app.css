@@ -5,3 +5,7 @@
 .post-body h2 {
   @apply text-2xl mt-8 mb-6 font-bold;
 }
+
+.post-body p {
+  @apply text-xl leading-7 my-4;
+}
