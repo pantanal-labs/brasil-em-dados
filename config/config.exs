@@ -5,7 +5,7 @@
 # is restricted to this project.
 
 # General application configuration
-use Mix.Config
+import Config
 
 config :brasil_em_dados,
   ecto_repos: [BrasilEmDados.Repo]
