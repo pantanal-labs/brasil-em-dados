@@ -51,7 +51,7 @@ defmodule BrasilEmDados.MixProject do
       {:plug_cowboy, "~> 2.0"},
       {:earmark, "~> 1.4.14"},
       {:esbuild, "~> 0.4.0", runtime: Mix.env() == :dev},
-      {:tailwind, "~> 0.1.5", runtime: Mix.env() == :dev},
+      {:tailwind, "~> 0.1.5"},
       {:scrivener_ecto, "~> 2.7.0"}
     ]
   end

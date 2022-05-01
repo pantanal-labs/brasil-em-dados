@@ -1,0 +1,1 @@
+call "%~dp0\brasil_em_dados" eval BrasilEmDados.Release.migrate

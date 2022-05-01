@@ -5,7 +5,7 @@
 # is restricted to this project.
 
 # General application configuration
-use Mix.Config
+import Config
 
 config :brasil_em_dados,
   ecto_repos: [BrasilEmDados.Repo]
@@ -36,7 +36,7 @@ config :esbuild,
   ]
 
 config :tailwind,
-  version: "3.0.10",
+  version: "3.0.12",
   default: [
     args: ~w(
       --config=tailwind.config.js
