@@ -60,7 +60,7 @@ if config_env() == :prod do
   # If you are doing OTP releases, you need to instruct Phoenix
   # to start each relevant endpoint:
   #
-  config :brasil_em_dados, BrasilEmDadosWeb.Endpoint, server: true
+  # config :brasil_em_dados, BrasilEmDadosWeb.Endpoint, server: true
   #
   # Then you can assemble a release by calling `mix release`.
   # See `mix help release` for more information.

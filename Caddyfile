@@ -1,0 +1,4 @@
+brasilemdados.com {
+	reverse_proxy 127.0.0.1:4000
+	tls rogervezaro1997@gmail.com
+}
